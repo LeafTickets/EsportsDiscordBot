@@ -105,12 +105,14 @@ async def clearschedule(ctx):
 async def rm(ctx):
     rng1 = randint(0, len(minigames) - 1)
     await ctx.send(minigames[rng1])
+  return minigames[rng1]
 
 
 @bot.command()
 async def rw(ctx):
     rng2 = randint(0, len(weapons))
     await ctx.send(weapons[rng2])
+  return weapons[rng2]
 
 
 @bot.command()
@@ -185,5 +187,11 @@ async def setscore(ctx, gamenum, teamnum, score):
             await ctx.send(gamevalue)
         else:
             return
+
+@bot.command()
+async def rg(ctx, numofplayers)
+  await ctx.send(rm())
+  for players in numofplayers:
+    ctx.send(rw())
 
 bot.run()
