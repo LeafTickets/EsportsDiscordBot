@@ -186,4 +186,4 @@ async def setscore(ctx, gamenum, teamnum, score):
         else:
             return
 
-bot.run("OTQzMTgyOTgxNjY3ODg1MTU2.YgvVmg.JCeMKUpLkXvUdsaxzjNv2eCH6rY")
+bot.run()
