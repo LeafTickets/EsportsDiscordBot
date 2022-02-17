@@ -13,7 +13,7 @@ logging.basicConfig(level=logging.INFO)
 bot = commands.Bot(command_prefix='$')
 undefined = "undefined"
 minigames = ['Sumo(armor)', 'Sumo(baller)', 'Hide and Seek', 'Same Weapon(Teams)', 'Same Weapon(Everyone)', 'Laser Tag',
-             'Juggernaut', 'Undefined']
+             'Juggernaut', 'Splat Zones', 'Rainmaker', 'Turf War', 'Turf War(splatfest)', 'Clam Blitz', 'Tower Control', 'Undefined']
 rwf = open("Weapons.txt", "r")
 weapons = rwf.readlines()
 embed = discord.Embed(title="Schedule", description="The upcoming five games for Esports", color=0x6a37c8)
