@@ -52,7 +52,7 @@ async def newgame(ctx, gamenum, team1, team2, time):
         await ctx.send(game)
         return game
     else:
-        ctx.send("There can only be five games stored atm")
+        await ctx.send("There can only be five games stored atm")
 
 
 @bot.command()
@@ -88,7 +88,7 @@ async def cleargame(ctx, gamenum):
         await ctx.send("Cleared")
         return
     else:
-        ctx.send("There can only be five games stored atm")
+        await ctx.send("There can only be five games stored atm")
 
 
 @bot.command()
@@ -105,14 +105,14 @@ async def clearschedule(ctx):
 async def rm(ctx):
     rng1 = randint(0, len(minigames) - 1)
     await ctx.send(minigames[rng1])
-  return minigames[rng1]
+    return minigames[rng1]
 
 
 @bot.command()
 async def rw(ctx):
     rng2 = randint(0, len(weapons))
     await ctx.send(weapons[rng2])
-  return weapons[rng2]
+    return weapons[rng2]
 
 
 @bot.command()
@@ -189,9 +189,18 @@ async def setscore(ctx, gamenum, teamnum, score):
             return
 
 @bot.command()
-async def rg(ctx, numofplayers)
-  await ctx.send(rm())
-  for players in numofplayers:
-    ctx.send(rw())
+async def rg(ctx, numofplayers):
+  rng1 = randint(0, len(minigames) - 1)
+  if minigames[rng1] == "Same Weapon(Teams)":
+    numofplayers = 2
+    await ctx.send(minigames[rng1])
+  elif minigames[rng1] == "Same Weapon(Everyone)":
+    numofplayers = 1
+    await ctx.send(minigames[rng1])
+  else:
+      await ctx.send(minigames[rng1])
+  for players in range(0, int(numofplayers)):
+    rng2 = randint(0, len(weapons))
+    await ctx.send(weapons[rng2])
 
 bot.run()
