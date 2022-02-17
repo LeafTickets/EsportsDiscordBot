@@ -16,6 +16,8 @@ minigames = ['Sumo(armor)', 'Sumo(baller)', 'Hide and Seek', 'Same Weapon(Teams)
              'Juggernaut', 'Splat Zones', 'Rainmaker', 'Turf War', 'Turf War(splatfest)', 'Clam Blitz', 'Tower Control', 'Undefined']
 rwf = open("Weapons.txt", "r")
 weapons = rwf.readlines()
+sw = open("sniper.txt", "r")
+snipers = sw.readlines()
 embed = discord.Embed(title="Schedule", description="The upcoming five games for Esports", color=0x6a37c8)
 embed.add_field(name="Game 1", value=undefined, inline=True)
 embed.add_field(name="Game 2", value=undefined, inline=True)
@@ -191,16 +193,25 @@ async def setscore(ctx, gamenum, teamnum, score):
 @bot.command()
 async def rg(ctx, numofplayers):
   rng1 = randint(0, len(minigames) - 1)
+  message = minigames[rng1] + "\n"
   if minigames[rng1] == "Same Weapon(Teams)":
     numofplayers = 2
-    await ctx.send(minigames[rng1])
+    message = minigames[rng1] + "\n"
   elif minigames[rng1] == "Same Weapon(Everyone)":
     numofplayers = 1
-    await ctx.send(minigames[rng1])
+    message = minigames[rng1] + "\n"
+  elif minigames[rng1] == "Laser Tag":
+    message = minigames[rng1] + "\n"
+    for players in range(0, int(numofplayers)):
+      rng2 = randint(0, len(snipers))
+      message = message + snipers[rng2]
+    await ctx.send(message)
+    return
   else:
-      await ctx.send(minigames[rng1])
+    message = minigames[rng1] + "\n"
   for players in range(0, int(numofplayers)):
     rng2 = randint(0, len(weapons))
-    await ctx.send(weapons[rng2])
+    message = message + weapons[rng2]
+  await ctx.send(message)
 
 bot.run()
