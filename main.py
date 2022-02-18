@@ -192,6 +192,13 @@ async def setscore(ctx, gamenum, teamnum, score):
         else:
             return
 
+@bot.command()
+async def never(ctx):
+  lyric = open("Never.txt", "r")
+  lyrics = lyric.readlines()
+  for lines in lyrics:
+    ctx.send(lyrics[lines])
+  return
 
 @bot.command()
 async def rg(ctx, numofplayers):
