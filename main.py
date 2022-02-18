@@ -207,6 +207,10 @@ async def rg(ctx, numofplayers):
       message = message + snipers[rng2]
     await ctx.send(message)
     return
+  elif minigames[rng1] == "Sumo(armor)":
+      message = message + "Classic Squiffer"
+      await ctx.send(message)
+      return
   else:
     message = minigames[rng1] + "\n"
   for players in range(0, int(numofplayers)):
