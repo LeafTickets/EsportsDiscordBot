@@ -13,7 +13,7 @@ logging.basicConfig(level=logging.INFO)
 bot = commands.Bot(command_prefix='$')
 undefined = "undefined"
 minigames = ['Sumo(armor)', 'Sumo(baller)', 'Hide and Seek', 'Same Weapon(Teams)', 'Same Weapon(Everyone)', 'Laser Tag',
-             'Juggernaut', 'Splat Zones', 'Rainmaker', 'Turf War', 'Turf War(splatfest)', 'Clam Blitz', 'Tower Control', 'Undefined']
+             'Juggernaut', 'Splat Zones', 'Rainmaker', 'Turf War', 'Turf War(splatfest)', 'Clam Blitz', 'Tower Control']
 rwf = open("Weapons.txt", "r")
 weapons = rwf.readlines()
 sw = open("sniper.txt", "r")
@@ -127,7 +127,7 @@ async def setscore(ctx, gamenum, teamnum, score):
             embed.set_field_at(0, name="Game 1", value=str(gamevalue), inline=True)
             await ctx.send(gamevalue)
         elif teamnum == "2":
-            index = gamevalue.find(" ", vsplace+3)
+            index = gamevalue.find(" ", vsplace + 3)
             gamevalue = gamevalue[:index] + ' ' + score + ' ' + gamevalue[index:]
             embed.set_field_at(0, name="Game 1", value=str(gamevalue), inline=True)
             await ctx.send(gamevalue)
@@ -141,7 +141,7 @@ async def setscore(ctx, gamenum, teamnum, score):
             embed.set_field_at(1, name="Game 1", value=str(gamevalue), inline=True)
             await ctx.send(gamevalue)
         elif teamnum == "2":
-            index = gamevalue.find(" ", vsplace+3)
+            index = gamevalue.find(" ", vsplace + 3)
             gamevalue = gamevalue[:index] + score + ' ' + ' ' + gamevalue[index:]
             embed.set_field_at(1, name="Game 1", value=str(gamevalue), inline=True)
             await ctx.send(gamevalue)
@@ -155,7 +155,7 @@ async def setscore(ctx, gamenum, teamnum, score):
             embed.set_field_at(2, name="Game 1", value=str(gamevalue), inline=True)
             await ctx.send(gamevalue)
         elif teamnum == "2":
-            index = gamevalue.find(" ", vsplace+3)
+            index = gamevalue.find(" ", vsplace + 3)
             gamevalue = gamevalue[:index] + score + ' ' + ' ' + gamevalue[index:]
             embed.set_field_at(2, name="Game 1", value=str(gamevalue), inline=True)
             await ctx.send(gamevalue)
@@ -169,7 +169,7 @@ async def setscore(ctx, gamenum, teamnum, score):
             embed.set_field_at(3, name="Game 1", value=str(gamevalue), inline=True)
             await ctx.send(gamevalue)
         elif teamnum == "2":
-            index = gamevalue.find(" ", vsplace+3)
+            index = gamevalue.find(" ", vsplace + 3)
             gamevalue = gamevalue[:index] + score + ' ' + ' ' + gamevalue[index:]
             embed.set_field_at(3, name="Game 1", value=str(gamevalue), inline=True)
             await ctx.send(gamevalue)
@@ -183,39 +183,41 @@ async def setscore(ctx, gamenum, teamnum, score):
             embed.set_field_at(4, name="Game 1", value=str(gamevalue), inline=True)
             await ctx.send(gamevalue)
         elif teamnum == "2":
-            index = gamevalue.find(" ", vsplace+3)
+            index = gamevalue.find(" ", vsplace + 3)
             gamevalue = gamevalue[:index] + score + ' ' + ' ' + gamevalue[index:]
             embed.set_field_at(4, name="Game 1", value=str(gamevalue), inline=True)
             await ctx.send(gamevalue)
         else:
             return
 
+
 @bot.command()
 async def rg(ctx, numofplayers):
-  rng1 = randint(0, len(minigames) - 1)
-  message = minigames[rng1] + "\n"
-  if minigames[rng1] == "Same Weapon(Teams)":
-    numofplayers = 2
+    rng1 = randint(0, len(minigames) - 1)
     message = minigames[rng1] + "\n"
-  elif minigames[rng1] == "Same Weapon(Everyone)":
-    numofplayers = 1
-    message = minigames[rng1] + "\n"
-  elif minigames[rng1] == "Laser Tag":
-    message = minigames[rng1] + "\n"
+    if minigames[rng1] == "Same Weapon(Teams)":
+        numofplayers = 2
+        message = minigames[rng1] + "\n"
+    elif minigames[rng1] == "Same Weapon(Everyone)":
+        numofplayers = 1
+        message = minigames[rng1] + "\n"
+    elif minigames[rng1] == "Laser Tag":
+        message = minigames[rng1] + "\n"
+        for players in range(0, int(numofplayers)):
+            rng2 = randint(0, len(snipers))
+            message = message + snipers[rng2]
+        await ctx.send(message)
+        return
+    elif minigames[rng1] == "Sumo(armor)":
+        message = message + "Classic Squiffer"
+        await ctx.send(message)
+        return
+    else:
+        message = minigames[rng1] + "\n"
     for players in range(0, int(numofplayers)):
-      rng2 = randint(0, len(snipers))
-      message = message + snipers[rng2]
+        rng2 = randint(0, len(weapons))
+        message = message + weapons[rng2]
     await ctx.send(message)
-    return
-  elif minigames[rng1] == "Sumo(armor)":
-      message = message + "Classic Squiffer"
-      await ctx.send(message)
-      return
-  else:
-    message = minigames[rng1] + "\n"
-  for players in range(0, int(numofplayers)):
-    rng2 = randint(0, len(weapons))
-    message = message + weapons[rng2]
-  await ctx.send(message)
+
 
 bot.run()
