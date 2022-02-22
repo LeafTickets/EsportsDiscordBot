@@ -192,16 +192,19 @@ async def setscore(ctx, gamenum, teamnum, score):
         else:
             return
 
+
 @bot.command()
 @commands.has_role("Never")
 async def never(ctx):
-  lyric = open("Never.txt", "r")
-  lyrics = lyric.readlines()
-  line = 0
-  for lines in lyrics:
-    await ctx.send(lyrics[line])
-    line = line + 1
-  return
+    lyric = open("Never.txt", "r")
+    lyrics = lyric.readlines()
+    line = 0
+    for lines in lyrics:
+        await ctx.send(lyrics[line])
+        line = line + 1
+    lyric.close()
+    return
+
 
 @bot.command()
 async def rg(ctx, numofplayers):
@@ -227,8 +230,8 @@ async def rg(ctx, numofplayers):
     elif minigames[rng1] == "Sumo(baller)":
         message = minigames[rng1] + "\n"
         for players in range(0, int(numofplayers)):
-          rng2 = randint(0, len(ballers))
-          message = message + ballers[rng2]
+            rng2 = randint(0, len(ballers))
+            message = message + ballers[rng2]
         await ctx.send(message)
     else:
         message = minigames[rng1] + "\n"
