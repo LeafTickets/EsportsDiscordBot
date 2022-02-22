@@ -195,16 +195,18 @@ async def setscore(ctx, gamenum, teamnum, score):
 
 @bot.command()
 @commands.has_role("Never")
-async def never(ctx):
+async def never(ctx, targetID):
     lyric = open("Never.txt", "r")
     lyrics = lyric.readlines()
     line = 0
     for lines in lyrics:
-        await ctx.send(lyrics[line])
+        lineval = ""
+        lineval = lyrics[line] + "<@" + str(targetID) + ">"
+        await ctx.send(lineval)
         line = line + 1
     lyric.close()
     return
-
+    
 
 @bot.command()
 async def rg(ctx, numofplayers):
