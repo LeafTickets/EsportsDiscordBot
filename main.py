@@ -2,7 +2,7 @@
 import http.cookiejar
 import logging
 import discord
-import mechanize
+import selenium
 from discord.ext import commands
 import requests
 from bs4 import BeautifulSoup
