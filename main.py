@@ -1,15 +1,17 @@
 # bot is working, now to do the embed and get the info from playvs
-import http.cookiejar
 import logging
 import discord
-import mechanize
 from discord.ext import commands
-import requests
-from bs4 import BeautifulSoup
 from random import randint
+import selenium
+from selenium import webdriver
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.by import By
 
 logging.basicConfig(level=logging.INFO)
-
+driver = webdriver.Chrome('chromedriver')
+driver.get('https://app.playvs.com/app/schedule/upcoming')
 bot = commands.Bot(command_prefix='$')
 undefined = "undefined"
 minigames = ['Sumo(armor)', 'Sumo(baller)', 'Hide and Seek', 'Same Weapon(Teams)', 'Same Weapon(Everyone)', 'Laser Tag',
@@ -27,6 +29,24 @@ embed.add_field(name="Game 3", value=undefined, inline=True)
 embed.add_field(name="Game 4", value=undefined, inline=True)
 embed.add_field(name="Game 5", value=undefined, inline=True)
 
+@bot.command()
+async def updateschedule(ctx):
+    games = WebDriverWait(driver, 10).until(EC.presence_of_all_elements_located((By.XPATH, '//p[@class="MuiTypography-root jss280 MuiTypography-body1 MuiTypography-colorTextPrimary"]')))
+    gamenum = 0
+    for game in games:
+        print(games[gamenum].text)
+        letters = 0
+        for letter in games[gamenum].text:
+            if games[gamenum].text[letters].isspace():
+                team1 = games[gamenum].text[0:letters]
+                team2 = games[gamenum].text[letters+3:len(games[gamenum].text)]
+                game = team1 + " vs " + team2 + " " + "4:00"
+                embed.set_field_at(gamenum, name="Game " + str(gamenum+1), value=str(game), inline=True)
+                continue
+            letters = letters+1
+        gamenum = gamenum + 1
+        if gamenum > 5:
+            return
 
 @bot.command()
 async def newgame(ctx, gamenum, team1, team2, time):
