@@ -14,14 +14,6 @@ driver = webdriver.Chrome('chromedriver')
 driver.get('https://app.playvs.com/app/schedule/upcoming')
 bot = commands.Bot(command_prefix='$')
 undefined = "undefined"
-minigames = ['Sumo(armor)', 'Sumo(baller)', 'Hide and Seek', 'Same Weapon(Teams)', 'Same Weapon(Everyone)', 'Laser Tag',
-             'Juggernaut', 'Splat Zones', 'Rainmaker', 'Turf War', 'Turf War(splatfest)', 'Clam Blitz', 'Tower Control']
-rwf = open("Weapons.txt", "r")
-weapons = rwf.readlines()
-sw = open("sniper.txt", "r")
-snipers = sw.readlines()
-bw = open("ballers.txt", "r")
-ballers = bw.readline()
 embed = discord.Embed(title="Schedule", description="The upcoming five games for Esports", color=0x6a37c8)
 embed.add_field(name="Game 1", value=undefined, inline=True)
 embed.add_field(name="Game 2", value=undefined, inline=True)
@@ -80,11 +72,6 @@ async def newgame(ctx, gamenum, team1, team2, time):
 
 
 @bot.command()
-async def test(ctx, arg):
-    await ctx.send(arg)
-
-
-@bot.command()
 async def schedule(ctx):
     await ctx.send(embed=embed)
 
@@ -123,20 +110,6 @@ async def clearschedule(ctx):
     embed.set_field_at(3, name="Game 4", value=undefined, inline=True)
     embed.set_field_at(4, name="Game 5", value=undefined, inline=True)
     await ctx.send("Cleared")
-
-
-@bot.command()
-async def rm(ctx):
-    rng1 = randint(0, len(minigames) - 1)
-    await ctx.send(minigames[rng1])
-    return minigames[rng1]
-
-
-@bot.command()
-async def rw(ctx):
-    rng2 = randint(0, len(weapons))
-    await ctx.send(weapons[rng2])
-    return weapons[rng2]
 
 
 @bot.command()
@@ -213,54 +186,4 @@ async def setscore(ctx, gamenum, teamnum, score):
             return
 
 
-@bot.command()
-@commands.has_role("Never")
-async def never(ctx, targetID):
-    lyric = open("Never.txt", "r")
-    lyrics = lyric.readlines()
-    line = 0
-    for lines in lyrics:
-        lineval = ""
-        lineval = lyrics[line] + "<@" + str(targetID) + ">"
-        await ctx.send(lineval)
-        line = line + 1
-    lyric.close()
-    return
-    
-
-@bot.command()
-async def rg(ctx, numofplayers):
-    rng1 = randint(0, len(minigames) - 1)
-    message = minigames[rng1] + "\n"
-    if minigames[rng1] == "Same Weapon(Teams)":
-        numofplayers = 2
-        message = minigames[rng1] + "\n"
-    elif minigames[rng1] == "Same Weapon(Everyone)":
-        numofplayers = 1
-        message = minigames[rng1] + "\n"
-    elif minigames[rng1] == "Laser Tag":
-        message = minigames[rng1] + "\n"
-        for players in range(0, int(numofplayers)):
-            rng2 = randint(0, len(snipers))
-            message = message + snipers[rng2]
-        await ctx.send(message)
-        return
-    elif minigames[rng1] == "Sumo(armor)":
-        message = message + "Classic Squiffer"
-        await ctx.send(message)
-        return
-    elif minigames[rng1] == "Sumo(baller)":
-        message = minigames[rng1] + "\n"
-        for players in range(0, int(numofplayers)):
-            rng2 = randint(0, len(ballers))
-            message = message + ballers[rng2]
-        await ctx.send(message)
-    else:
-        message = minigames[rng1] + "\n"
-    for players in range(0, int(numofplayers)):
-        rng2 = randint(0, len(weapons))
-        message = message + weapons[rng2]
-    await ctx.send(message)
-
-
-bot.run()
+bot.run('Token Goes Here')
