@@ -185,5 +185,5 @@ async def setscore(ctx, gamenum, teamnum, score):
         else:
             return
 
-
-bot.run('Token Goes Here')
+if __name__ == "__main__":
+    bot.run('Token Goes Here')
