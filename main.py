@@ -262,5 +262,8 @@ async def rg(ctx, numofplayers):
         message = message + weapons[rng2]
     await ctx.send(message)
 
-
-bot.run()
+def main():
+  bot.run()
+  
+if __name__ == "__main__":
+  main()
